@@ -1,4 +1,4 @@
-/*
+package com.homework.samples;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,28 +15,15 @@
  * limitations under the License.
  */
 
-package samples;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 @RestController
-public class ConsumerController {
-  @Autowired
-  private RestTemplate restTemplate;
-
-  // consumer service which delegate the implementation to provider service.
+public class ProviderController {
+  // a very simple service to echo the request parameter
   @GetMapping("/sayHello")
   public String sayHello(@RequestParam("name") String name) {
-    return restTemplate.getForObject("http://provider/sayHello?name={1}", String.class, name);
-  }
-
-  @RequestMapping("/configuration")
-  public String getName() {
-    return restTemplate.getForObject("http://provider/configuration", String.class);
+    return "Hello " + name;
   }
 }

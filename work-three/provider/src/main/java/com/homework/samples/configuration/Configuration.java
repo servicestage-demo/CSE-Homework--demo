@@ -1,4 +1,4 @@
-/*
+package com.homework.samples.configuration;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,15 +15,21 @@
  * limitations under the License.
  */
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.stereotype.Component;
 
-@RestController
-public class ProviderController {
-  // a very simple service to echo the request parameter
-  @GetMapping("/sayHello")
-  public String sayHello(@RequestParam("name") String name) {
-    return "Hello " + name;
+@Component
+@RefreshScope
+@ConfigurationProperties("price.test")
+public class Configuration {
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

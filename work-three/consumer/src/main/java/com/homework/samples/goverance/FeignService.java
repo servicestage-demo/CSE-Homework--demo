@@ -14,15 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.homework.samples.goverance;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-@SpringBootApplication
-@EnableDiscoveryClient
-public class ProviderApplication {
-  public static void main(String[] args) {
-    SpringApplication.run(ProviderApplication.class, args);
-  }
+@FeignClient(name = "price")
+public interface FeignService {
+  @PostMapping("/price")
+  String getPrice(@RequestParam("id") Long id);
+
+  @RequestMapping("/retry")
+  String retry(@RequestParam(name = "invocationID") String invocationID);
 }

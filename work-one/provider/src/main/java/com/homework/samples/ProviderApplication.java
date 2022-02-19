@@ -1,4 +1,4 @@
-/*
+package com.homework.samples;/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -15,28 +15,14 @@
  * limitations under the License.
  */
 
-import java.util.List;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class ProviderController {
-
-  @Autowired
-  private Configuration configuration;
-
-  // a very simple service to echo the request parameter
-  @GetMapping("/sayHello")
-  public String sayHello(@RequestParam("name") String name) {
-    return "Hello " + name;
-  }
-
-  @RequestMapping("/configuration")
-  public String getName() {
-    return "Now configuration name is: " + configuration.getName();
+@SpringBootApplication
+@EnableDiscoveryClient
+public class ProviderApplication {
+  public static void main(String[] args) {
+    SpringApplication.run(ProviderApplication.class, args);
   }
 }
