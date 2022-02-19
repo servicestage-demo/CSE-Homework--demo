@@ -15,22 +15,23 @@
  * limitations under the License.
  */
 
-package com.homework.samples;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.stereotype.Component;
 
-@RestController
-public class ConsumerController {
-  @Autowired
-  private RestTemplate restTemplate;
+@Component
+@RefreshScope
+@ConfigurationProperties("price.test")
+public class Configuration {
+  private String name;
 
-  // consumer service which delegate the implementation to provider service.
-  @GetMapping("/sayHello")
-  public String sayHello(@RequestParam("name") String name) {
-    return restTemplate.getForObject("http://provider/sayHello?name={1}", String.class, name);
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }
